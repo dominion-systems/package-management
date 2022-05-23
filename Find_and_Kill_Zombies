@@ -1,0 +1,14 @@
+#run top command to get overview report
+#locate the zombie processes and their parent process
+
+# List the zombie processes 
+ps ux | awk '{if($8=="Z+") print}'
+
+#Get its parent’s process ID
+ps -o ppid= -p <child_id>
+
+#You can achieve the 2 commands above with the below
+ps -A -ostat,pid,ppid | grep -e '[zZ]'
+
+#Kill Parent Process
+kill -9 <parent_process_ID>
